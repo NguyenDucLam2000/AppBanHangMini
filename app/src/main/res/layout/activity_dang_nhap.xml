@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:id="@+id/llTong"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".View.DangNhapActivity">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            app:titleTextColor="#FFF"
+            android:background="#4286f4"
+            android:layout_height="?attr/actionBarSize">
+
+        </android.support.v7.widget.Toolbar>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabDangNhap"
+            android:layout_width="match_parent"
+            android:background="#4286f4"
+            app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+            android:layout_height="wrap_content">
+        </android.support.design.widget.TabLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vpDangNhap"
+            android:layout_width="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_height="match_parent">
+
+        </android.support.v4.view.ViewPager>
+
+</LinearLayout>
+
+
