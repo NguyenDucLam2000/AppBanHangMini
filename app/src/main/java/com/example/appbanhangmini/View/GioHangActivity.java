@@ -11,6 +11,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.appbanhangmini.Adapter.AdapterGioHang;
 import com.example.appbanhangmini.Model.GioHang;
@@ -33,6 +34,7 @@ public class GioHangActivity extends AppCompatActivity implements OnClickListene
     AdapterGioHang adapterGioHang;
     Button btnThanhToanGioHang, btnTiepTucMuaSam;
     public static TextView txtTongTien, txtGioHangTrong;
+
     private void addControls()
     {
         toolbar = findViewById(R.id.toolbar);
@@ -51,17 +53,18 @@ public class GioHangActivity extends AppCompatActivity implements OnClickListene
         btnTiepTucMuaSam.setOnClickListener(this);
         btnThanhToanGioHang.setOnClickListener(this);
     }
+
     private void loadDuLieu()
     {
         size = MainActivity.listGioHang.size();
         // Nếu listGioHang = 0 thì thêm GioHang vào GioHang
         intent = getIntent();
         bundle = intent.getExtras();
-        if(bundle != null)
+        if (bundle != null)
         {
             addProductToCart();
         }
-        if(MainActivity.listGioHang.size() != 0)
+        if (MainActivity.listGioHang.size() != 0)
         {
             txtGioHangTrong.setVisibility(View.INVISIBLE);
         }
@@ -74,7 +77,7 @@ public class GioHangActivity extends AppCompatActivity implements OnClickListene
         ma = bundle.getInt(ChiTietSanPhamActivity.keyMa);
         for (int i = 0; i < size; ++i)
         {
-            if(ma == MainActivity.listGioHang.get(i).getMaSanPham())
+            if (ma == MainActivity.listGioHang.get(i).getMaSanPham())
             {
                 MainActivity.listGioHang.get(i).setSoLuong(soLuong);
                 exists = true;
@@ -84,7 +87,7 @@ public class GioHangActivity extends AppCompatActivity implements OnClickListene
         hinh = bundle.getString(ChiTietSanPhamActivity.keyHinh);
         ten = bundle.getString(ChiTietSanPhamActivity.keyTen);
         tongGia = soLuong * gia;
-        if(!exists)
+        if (!exists)
         {
             MainActivity.listGioHang.add(new GioHang(ma, tongGia, soLuong, ten, hinh));
             size++;
@@ -100,6 +103,7 @@ public class GioHangActivity extends AppCompatActivity implements OnClickListene
         }
         txtTongTien.setText(String.valueOf(NumberFormat.getCurrencyInstance(new Locale("vi", "VN")).format(tongTien)));
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -114,7 +118,7 @@ public class GioHangActivity extends AppCompatActivity implements OnClickListene
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        if(item.getItemId() == android.R.id.home)
+        if (item.getItemId() == android.R.id.home)
         {
             onBackPressed();
             return true;
@@ -125,6 +129,25 @@ public class GioHangActivity extends AppCompatActivity implements OnClickListene
     @Override
     public void onClick(View v)
     {
-
+        switch (v.getId())
+        {
+            case R.id.btnThanhToanGioHang:
+                xuLyThanhToan();
+                break;
+            case R.id.btnTiepTucMuaSam:
+                break;
+        }
+    }
+    private void xuLyThanhToan()
+    {
+        if(MainActivity.listGioHang.size() > 0)
+        {
+            intent = new Intent(GioHangActivity.this, ThongTinThanhToanActivity.class);
+            startActivity(intent);
+        }
+        else
+        {
+            Toast.makeText(getApplicationContext(), "Giỏ hàng của bạn đang trống ", Toast.LENGTH_LONG).show();
+        }
     }
 }
